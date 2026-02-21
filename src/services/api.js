@@ -1,10 +1,18 @@
 import axios from 'axios';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787/api';
+const MEDIA_BASE_URL = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:8787';
 
 const apiClient = axios.create({
     baseURL: API_BASE_URL, 
 });
+
+const transformGalleryItems = (items) => {
+    return items.map(item => ({
+        ...item,
+        url: item.url?.startsWith('http') ? item.url : `${MEDIA_BASE_URL}${item.url}`
+    }));
+};
 
 // Function to get the auth token from storage (e.g., localStorage)
 const getToken = () => localStorage.getItem('token');
@@ -24,11 +32,24 @@ apiClient.interceptors.request.use(config => {
 // --- Public Endpoints ---
 export const getPublicAnnouncements = () => apiClient.get('/announcements');
 export const getPublicAssignments = () => apiClient.get('/assignments');
-export const getPublicGallery = () => apiClient.get('/gallery');
+export const getPublicGallery = () => apiClient.get('/gallery').then(res => ({
+    ...res,
+    data: transformGalleryItems(res.data)
+}));
 export const getPublicResources = () => apiClient.get('/resources');
 export const getPublicRules = () => apiClient.get('/rules');
 export const getPublicSchedule = () => apiClient.get('/schedule');
-export const getSiteSettings = () => apiClient.get('/site');
+export const getSiteSettings = () => apiClient.get('/site').then(res => ({
+    ...res,
+    data: {
+        ...res.data,
+        scheduleImage: res.data.scheduleImage?.startsWith('http')
+            ? res.data.scheduleImage
+            : res.data.scheduleImage
+                ? `${MEDIA_BASE_URL}${res.data.scheduleImage}`
+                : null
+    }
+}));
 
 
 // --- Auth Endpoints ---
@@ -55,14 +76,25 @@ export const createAssignment = (data) => apiClient.post('/admin/assignments', d
 export const updateAssignment = (id, data) => apiClient.put(`/admin/assignments/${id}`, data);
 export const deleteAssignment = (id) => apiClient.delete(`/admin/assignments/${id}`);
 
-export const getAdminSchedule = () => apiClient.get('/admin/schedule');
+export const getAdminSchedule = () => apiClient.get('/admin/schedule').then(res => ({
+    ...res,
+    data: {
+        ...res.data,
+        scheduleImage: res.data.scheduleImage?.startsWith('http') 
+            ? res.data.scheduleImage 
+            : `${MEDIA_BASE_URL}${res.data.scheduleImage}`
+    }
+}));
 export const updateSchedule = (data) => apiClient.post('/admin/schedule', data);
 export const uploadScheduleImage = (formData) => apiClient.post('/admin/schedule/image', formData, {
     headers: { 'Content-Type': 'multipart/form-data' }
 });
 export const deleteScheduleImage = () => apiClient.delete('/admin/schedule/image');
 
-export const getAdminGallery = () => apiClient.get('/admin/gallery');
+export const getAdminGallery = () => apiClient.get('/admin/gallery').then(res => ({
+    ...res,
+    data: transformGalleryItems(res.data)
+}));
 export const uploadGalleryImage = (formData) => apiClient.post('/admin/gallery/upload', formData, {
     headers: { 'Content-Type': 'multipart/form-data' }
 });

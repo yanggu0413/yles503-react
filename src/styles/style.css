@@ -1,0 +1,181 @@
+:root {
+  font-family: 'PingFang SC', 'Microsoft YaHei', Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  background: #f5f7fa;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 基础动画 */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 页面淡入 */
+.ant-layout {
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* 卡片悬停效果 */
+.ant-card {
+  transition: all 0.25s ease;
+}
+
+.ant-card:hover {
+  box-shadow: 0 4px 12px rgba(22, 119, 255, 0.1);
+}
+
+/* 按钮效果 */
+.ant-btn {
+  transition: all 0.2s ease;
+}
+
+.ant-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* 表格效果 */
+.ant-table-thead > tr > th {
+  background: #f0f7ff !important;
+}
+
+.ant-table-tbody > tr:hover > td {
+  background: #fafafa !important;
+}
+
+/* 输入框效果 */
+.ant-input:hover,
+.ant-input:focus,
+.ant-picker:hover,
+.ant-picker-focused {
+  border-color: #1677ff;
+}
+
+/* 模态框 */
+.ant-modal-content {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* 列表效果 */
+.ant-list-item {
+  transition: background 0.2s ease;
+}
+
+.ant-list-item:hover {
+  background: #fafafa;
+}
+
+/* 欢迎区域 */
+.welcome-section {
+  animation: fadeInUp 0.5s ease-out;
+  background: linear-gradient(135deg, #1677ff 0%, #4096ff 100%);
+  border-radius: 12px;
+  padding: 28px;
+  color: white;
+  margin-bottom: 24px;
+}
+
+/* 时间线 */
+.ant-timeline-item {
+  animation: fadeInUp 0.4s ease-out;
+}
+
+/* 标题样式 */
+h1, h2, h3, h4, h5, h6 {
+  color: #1f1f1f;
+}
+
+/* 链接 */
+a {
+  transition: color 0.2s ease;
+}
+
+.ant-typography a {
+  color: #1677ff;
+}
+
+/* 滚动条 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d9d9d9;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #bfbfbf;
+}
+
+/* 菜单样式 */
+.ant-menu-dark {
+  background: transparent;
+}
+
+.ant-menu-dark .ant-menu-item-selected {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-radius: 6px;
+}
+
+.ant-menu-dark .ant-menu-item {
+  border-radius: 6px;
+  margin: 4px 8px;
+}
+
+/* 结果页面 */
+.ant-result {
+  animation: fadeInUp 0.4s ease-out;
+}
+
+/* 标签 */
+.ant-tag {
+  border-radius: 4px;
+}
+
+/* 分页 */
+.ant-pagination-item {
+  border-radius: 6px;
+}
+
+/* 消息提示 */
+.ant-message-notice-content {
+  border-radius: 8px;
+}
+
+/* 通知 */
+.ant-notification-notice {
+  border-radius: 12px;
+}

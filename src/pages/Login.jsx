@@ -3,6 +3,7 @@ import { Form, Input, Button, Card, Typography, Alert, Layout, theme, Space } fr
 import { UserOutlined, LockOutlined, ArrowLeftOutlined, ReadOutlined } from '@ant-design/icons';
 import { useNavigate, Link } from 'react-router-dom';
 import { login } from '../services/api';
+import { getErrorMessage } from '../utils/errorHandler';
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -24,7 +25,7 @@ const Login = () => {
             localStorage.setItem('token', token);
             navigate('/admin');
         } catch (err) {
-            setError('登入失敗，請檢查您的帳號或密碼。');
+            setError(getErrorMessage(err));
             console.error(err);
         } finally {
             setLoading(false);
